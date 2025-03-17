@@ -1,21 +1,42 @@
 import Link from "next/link";
-// import { useState } from 0"react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 function Index() {
 
-  // const [posts, setPosts] = useState([]);
+  const [isLogged, setIsLogged] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if(token) {
+      setIsLogged(true);
+    }
+  }, []);
   
+  const loggedCheck = () => {
+    if (!isLogged) {
+      alert('로그인이 필요합니다.');
+      router.push('/loginPage');
+    } else {
+      router.push('/registerPage');
+    }
+  };
 
   return (
     <div>
       <div className="container">
-        <h1>게시판</h1>
+        <div>
+          <img src="/next.svg" alt="logo" /> 
+          <h1>게시판</h1>
+        </div>
         <Link href={`/loginPage`}>
           <button>로그인</button>
         </Link>
-        <Link legacyBehavior href={`/registerPage`}>
-          <button>글쓰러 가기</button> 
-        </Link>
+        
+          <button onClick={loggedCheck}>글쓰러 가기</button> 
+        
         <li></li>
       </div>
       <style jsx>{`

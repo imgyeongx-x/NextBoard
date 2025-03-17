@@ -6,11 +6,11 @@ function RegisterPage() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const titleChange = (e) => {
+  const titleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   }
 
-  const contentChange = (e) => {
+  const contentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   }
 
@@ -31,7 +31,6 @@ function RegisterPage() {
           <button type="submit">등록하기</button>
         </div>
       </form>
-
 
       <style jsx>{`
         .container {

@@ -13,8 +13,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model BoardUser {
   id    Int     @id @default(autoincrement())
-  name  String
+  userId  String @unique
   password String
 }
