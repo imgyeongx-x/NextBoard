@@ -9,9 +9,26 @@ function RegisterPage() {
   const titleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   }
-
   const contentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
+  }
+
+  const handlePost = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const response = await fetch("/api/regPost", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, content }),
+    });
+
+    if (response.ok) {
+      alert("게시글이 등록되었습니다.");
+    } else {
+      alert("게시글 등록에 실패했습니다.");
+    }
   }
 
   return (
@@ -22,7 +39,7 @@ function RegisterPage() {
         <button>돌아가기</button>
       </Link>
 
-      <form>
+      <form onSubmit={handlePost}>
         <div>
           <input onChange={titleChange} value={title} type="text" placeholder="제목"/>
         </div>
@@ -55,6 +72,12 @@ function RegisterPage() {
           width: 300px;
           height: 30px;
           margin-bottom: 10px;
+          background-color: #0070f3;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
         }
       `}</style>
     </div>

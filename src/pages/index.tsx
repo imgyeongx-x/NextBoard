@@ -3,7 +3,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 function Index() {
-  const [content, setContent] = useState([]);
+  interface Post {
+    id: number;
+    title: string;
+    content: string;
+    writer: string;
+  }
+
+  const [content, setContent] = useState<Post[]>([]);
   const [isLogged, setIsLogged] = useState(false);
   const router = useRouter();
 

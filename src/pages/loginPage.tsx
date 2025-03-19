@@ -34,7 +34,7 @@ function LoginPage() {
         <Link href={`/`}>
           <button>돌아가기</button>
         </Link>
-        <form onSubmit={handleLogin}>
+        <form className="form" onSubmit={handleLogin}>
           <div>
             <input
               value={userId}
@@ -51,9 +51,7 @@ function LoginPage() {
               placeholder="비밀번호"
             />
           </div>
-          <div>
             <button type="submit">로그인하기</button>
-          </div>
         </form>
       </div>
       <style jsx>{`
@@ -61,17 +59,33 @@ function LoginPage() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          height: 100vh;
+          padding: 20px;
+          font-family: Arial, sans-serif;
+        }
+        .form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 20px;
         }
         input {
           width: 300px;
           height: 30px;
           margin-bottom: 10px;
         }
+        
+        main {
+          width: 100%;
+          max-width: 800px;
+        }
         button {
-          width: 300px;
-          height: 30px;
-          margin-bottom: 10px;
+          padding: 10px 20px;
+          background-color: #0070f3;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
         }
       `}</style>
     </div>
