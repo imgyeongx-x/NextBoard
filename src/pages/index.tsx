@@ -1,139 +1,60 @@
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import Button from '@/components/Button';
+import { useRouter } from 'next/router';
 
-function Index() {
-  interface Post {
-    id: number;
-    title: string;
-    content: string;
-    writer: string;
-  }
-
-  const [content, setContent] = useState<Post[]>([]);
-  const [isLogged, setIsLogged] = useState(false);
+export default function HomePage() {
   const router = useRouter();
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsLogged(true);
-    }
-
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch("/api/posts");
-        if (response.ok) {
-          const data = await response.json();
-          setContent(data);
-        } else {
-          console.error("Failed to fetch posts");
-        }
-      } catch (error) {
-        console.error("Failed to fetch posts", error);
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
-  const loggedCheck = () => {
-    if (!isLogged) {
-      alert('로그인이 필요합니다.');
-      router.push('/loginPage');
-    } else {
-      router.push('/registerPage');
-    }
-  };
-
   return (
-    <div className="container">
-      <header className="header">
-        <img src="/next.svg" alt="logo" className="logo" />
-        <h1>게시판</h1>
-      </header>
-      <nav className="nav">
-        <Link href={`/loginPage`}>
-          <button className="button">로그인</button>
-        </Link>
-        <button className="button" onClick={loggedCheck}>글쓰러 가기</button>
-      </nav>
-      <main className="main">
-        <ul className="post-list">
-          {content.map((post) => (
-            <li key={post.id} className="post-item">
-              <h2 className="post-title">{post.title}</h2>
-              <p className="post-content">{post.content}</p>
-              <p className="post-writer">{post.writer}</p>
-            </li>
-          ))}
-        </ul>
-      </main>
-      <style jsx>{`
-        .container {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding: 20px;
-          font-family: Arial, sans-serif;
-        }
-        .header {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin-bottom: 20px;
-        }
-        .logo {
-          width: 100px;
-          margin-bottom: 10px;
-        }
-        .nav {
-          display: flex;
-          gap: 10px;
-          margin-bottom: 20px;
-        }
-        .button {
-          padding: 10px 20px;
-          background-color: #0070f3;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          transition: background-color 0.3s;
-        }
-        .button:hover {
-          background-color: #005bb5;
-        }
-        .main {
-          width: 100%;
-          max-width: 800px;
-        }
-        .post-list {
-          list-style: none;
-          padding: 0;
-        }
-        .post-item {
-          background-color: #f9f9f9;
-          padding: 20px;
-          margin-bottom: 10px;
-          border-radius: 5px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .post-title {
-          margin: 0 0 10px;
-          font-size: 24px;
-        }
-        .post-content {
-          margin: 0 0 10px;
-        }
-        .post-writer {
-          margin: 0;
-          font-size: 14px;
-          color: #555;
-        }
-      `}</style>
+    <div className="h-[calc(100vh-30px)] bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* 메인 섹션 */}
+        <div className="flex flex-col items-center justify-center h-full text-center pt-40">
+          <h1 className="text-5xl font-bold text-gray-900 mb-6 animate-fade-in">
+            환영합니다!
+          </h1>
+          
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl leading-relaxed">
+            사내 연습용 게시판입니다.
+          </p>
+
+          <div className="space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row">
+            <Button 
+              variant="primary"
+              size="lg"
+              onClick={() => router.push('/board')}
+              className="animate-bounce-subtle"
+            >
+              게시판 둘러보기
+            </Button>
+            <Button 
+              variant="outline"
+              size="lg"
+              onClick={() => router.push('/login')}
+            >
+              로그인하기
+            </Button>
+          </div>
+
+          {/* 특징 섹션 */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16">
+            <div className="p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div className="text-indigo-600 text-2xl mb-2">✨</div>
+              <h3 className="text-lg font-semibold mb-2">자유로운 소통</h3>
+              <p className="text-gray-600">다양한 주제로 대화를 나눠보세요</p>
+            </div>
+            <div className="p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div className="text-indigo-600 text-2xl mb-2">🤝</div>
+              <h3 className="text-lg font-semibold mb-2">경험 공유</h3>
+              <p className="text-gray-600">서로의 경험을 공유하며 성장해요</p>
+            </div>
+            <div className="p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div className="text-indigo-600 text-2xl mb-2">💡</div>
+              <h3 className="text-lg font-semibold mb-2">아이디어 발전</h3>
+              <p className="text-gray-600">새로운 아이디어를 발견해보세요</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
-
-export default Index;
